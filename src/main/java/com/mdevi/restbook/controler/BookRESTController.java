@@ -33,7 +33,7 @@ public class BookRESTController {
                                       @RequestParam(value = "sidx", required = false) String sortBy,
                                       @RequestParam(value = "sord", required = false) String order) {
 
-
+        LOG.info("GET. Page {} fetched with {} rows, sorted by {} in order by {}.", page, rows, sortBy, order);
         Sort sort = null;
         String orderBy = sortBy;
 
@@ -67,6 +67,7 @@ public class BookRESTController {
 
     @GetMapping(value = "/book/{id}", produces = "application/json")
     public Book readBookByID(@PathVariable("id") long id) {
+        LOG.info("GET. A book with id {} has been inquired.", id);
         return bookRepository
                 .findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException
@@ -76,6 +77,7 @@ public class BookRESTController {
     @PostMapping(value = "/book")
     public ResponseEntity<Book> createBook(@RequestBody Book book) {
         Book savedBook = bookRepository.save(book);
+        LOG.info("POST. A new book with id {} was saved.", savedBook.getId());
         return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }
 
@@ -87,12 +89,14 @@ public class BookRESTController {
         }
         book.setId(id);
         bookRepository.save(book);
+        LOG.info("PUT. The book {} has been updated. ", book.getTitle());
         return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(value = "/book/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBook(@PathVariable("id") long id) {
+        LOG.info("DELETE. The book with id {} has been deleted.", id);
         bookRepository.deleteById(id);
     }
 
