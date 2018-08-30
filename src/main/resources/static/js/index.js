@@ -106,9 +106,9 @@ $(function () {
                 width: 300
             }
         ],
-        caption: "Post",
+        caption: "Books",
         rowNum: 10,
-        hidegrid: true,
+        hidegrid: false,
         guiStyle: "bootstrap4",
         iconSet: "fontAwesome",
         loadonce: false,
