@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class BookRESTController {
+public class BookRestController {
 
-    private final Logger LOG = LoggerFactory.getLogger(BookRESTController.class);
+    private final Logger LOG = LoggerFactory.getLogger(BookRestController.class);
 
     @Autowired
     private BookRepository bookRepository;
@@ -81,7 +81,7 @@ public class BookRESTController {
         return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }
 
-    @PutMapping("/book/{id}")
+    @PutMapping(value = "/book/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable("id") long id, @RequestBody Book book) {
         Optional<Book> theBook = bookRepository.findById(id);
         if (!theBook.isPresent()) {
@@ -93,7 +93,7 @@ public class BookRESTController {
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(value = "/book/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/book/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBook(@PathVariable("id") long id) {
         LOG.info("DELETE. The book with id {} has been deleted.", id);

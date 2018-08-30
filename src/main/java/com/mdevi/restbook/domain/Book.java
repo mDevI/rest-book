@@ -1,6 +1,7 @@
 package com.mdevi.restbook.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Book {
@@ -9,6 +10,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "ISBN")
+    @Pattern(regexp = "^(97(8|9))?\\d{9}(\\d|X)$")
     private String isbn;
     @Column(name = "title", length = 150, nullable = false)
     private String title;
